@@ -16,8 +16,17 @@ module.exports = {
         vulsePurple: "#8155FF",
         vulseRed: "#F34C50",
         vulseOrange: "#F9995B",
+        vulseGrey: "#F8F8FB",
+        vulseBorder: "#C2C6D3",
+      },
+      fontFamily: {
+        kumbh: ["Kumbh Sans", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // ...
+    require("tailwind-scrollbar"),
+  ],
 };

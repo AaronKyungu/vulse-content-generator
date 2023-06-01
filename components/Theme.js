@@ -1,6 +1,7 @@
 import React from "react";
 import Post from "./Post";
 import Spinner from "./Spinner";
+import { useState } from "react";
 
 function Theme({
   theme,
@@ -11,20 +12,24 @@ function Theme({
   generatePost,
   setPost,
 }) {
+  const [inputValue, setInputValue] = useState("");
+
   return (
     <div
-      className={`flex flex-col items-start justify-start ${
-        index != 2 && "lg:border-r border-b lg:border-b-0"
-      } pr-3`}
+      className={`flex flex-col items-start justify-start ${index != 2 && ""} `}
       key={index}
     >
       <div className="flex w-full">
         <div className="relative w-full">
           <input
             type="text"
-            className="p-2.5 w-full z-20 text-sm rounded-lg border border-gray-300"
-            placeholder={`Theme ${index + 1}`}
+            value={inputValue}
+            className={`p-2.5 w-full z-20 placeholder:text-md font-kumbh font-medium rounded-md border-[1.5px] border-vulseBorder focus:ring-vulsePurple focus:border-vulsePurple focus:outline-none ${
+              inputValue && "text-[#0B1A52]"
+            }`}
+            placeholder={`Enter a theme to generate content`}
             onChange={(e) => {
+              setInputValue(e.target.value);
               setThemes(
                 themes.map((item, i) =>
                   i === index ? { ...item, theme: e.target.value } : item
@@ -32,39 +37,43 @@ function Theme({
               );
             }}
           />
-          <button
-            type="button"
-            className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-vulsePurple rounded-r-lg border border-vulsePurple hover:bg-violet-800 focus:ring- focus:outline-none focus:ring-violet-300 dark:bg-vulsePurple dark:hover:bg-vulsePurple dark:focus:ring-vulsePurple"
-            onClick={async () => {
-              await generatePostIdeas(theme.theme, index);
-            }}
-          >
-            {theme.loading ? (
-              <Spinner />
-            ) : (
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.5}
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                className="w-5 h-5 transition duration-75 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
-                />
-              </svg>
-            )}
-          </button>
+          {inputValue && (
+            <button
+              type="button"
+              className="group/item transition-opacity duration-300 px-2 opacity-100 absolute top-[1px] right-[1.5px]  h-[95.5%]  text-sm font-medium rounded-r-lg bg-white"
+              onClick={async () => {
+                await generatePostIdeas(theme.theme, index);
+              }}
+            >
+              {theme.loading ? (
+                <Spinner />
+              ) : (
+                <svg
+                  fill="none"
+                  stroke="vulseGrey"
+                  strokeWidth={1.5}
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  className="w-5 h-5 transition duration-75"
+                >
+                  <path
+                    className="stroke-gray-400 group-hover/item:stroke-vulseBlue transition-all ease-in-out duration-75 "
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    stroke="currentColor"
+                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                  />
+                </svg>
+              )}
+            </button>
+          )}
         </div>
       </div>
 
       <div className="flex flex-col items-start justify-center rounded space-y-4 py-2 px-1 text-sm">
         {theme.ideas?.map((topic, index) => (
-          <div className="flex flex-col items-center justify-between space-x-2 py-2 px-1 text-sm w-full border-b2">
+          <div className="flex flex-col items-center justify-between space-x-2 py-2 px-1 text-sm w-full ">
             <div
               className="flex items-center justify-between rounded space-x-2 py-2 px-1 text-sm w-full"
               key={index}

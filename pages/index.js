@@ -7,6 +7,8 @@ import { LINKEDIN_URL } from "../helpers/auth";
 import MenuButton from "../components/MenuButton";
 import PostEdit from "../components/PostEdit";
 import Theme from "../components/Theme";
+import { IoPaperPlaneOutline } from "react-icons/io5";
+import { LuClock3 } from "react-icons/lu";
 
 export default function Home() {
   //main object to store all data
@@ -345,6 +347,8 @@ export default function Home() {
     }
   }
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
     <>
       <Head>
@@ -354,71 +358,136 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <MenuButton />
-      <div className="grid grid-cols-12 gap-4 h-full min-h-screen p-5">
-        <div className="p-5 sm:ml64 col-span-12 lg:col-span-12">
-          <div className="flex justify-between items-center mb-4">
-            <div className="w-full">
-              <h1 className="text-3xl font-bold text-gray-400 dark:text-slate-800">
-                Themes
-              </h1>
-              <span className="text-gray-600">
-                Please enter themes below to generate content
-              </span>
-            </div>
-            <div className="flex flex-col items-start justify-center space-y-3">
-              <h3 className="text-sm text-gray-400 dark:text-gray-500 font-semibold">
-                Priority
-              </h3>
+      <main className="w-full h-screen p-6 font-kumbh max-h-screen">
+        <div className="flex max-h-full min-h-full h-full bg-vulseGrey rounded-lg overflow-hidden">
+          <section className="w-1/2 h-full max-h-full py-8 ">
+            <div
+              name="scroll"
+              className="px-8 flex-col w-full h-full overflow-y-scroll max-h-full scrollbar-thin scrollbar-thumb-[#432F7B] scrollbar-track-[#C2C6D3]"
+            >
+              <div className="w-full h-fit ">
+                <h1 className="text-2xl font-bold font-raleway text-vulseBlue mb-4">
+                  Fill in some themes to generate ideas...
+                </h1>
+              </div>
 
-              <div className="flex items-center">
-                <span
-                  className={`text-sm font-medium ${
-                    model === "gpt-3.5-turbo"
-                      ? "text-vulsePurple"
-                      : "text-gray-400"
-                  }`}
-                >
-                  Speed
-                </span>
-                <label className="relative inline-flex items-center cursor-pointer mx-2">
-                  <input
-                    type="checkbox"
-                    value=""
-                    className="sr-only peer"
-                    onChange={handleSetModel}
-                    checked={model === "gpt-4"}
-                  />
-                  <div className="w-11 h-6 bg-vulsePurple rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:bor2er-gray-600 peer-checked:bg-vulsePurple"></div>
-                </label>
-                <span
-                  className={`text-sm font-medium ${
-                    model === "gpt-4" ? "text-vulsePurple" : "text-gray-400"
-                  }`}
-                >
-                  Quality
-                </span>
+              <div className="flex flex-col items-start justify-center space-y-3  ">
+                <h3 className=" text-base text-vulseBlue font-medium ">
+                  Select speed or quality:
+                </h3>
+
+                {/* <div className="flex items-center">
+                  <span
+                    className={`text-sm font-medium ${
+                      model === "gpt-3.5-turbo"
+                        ? "text-vulsePurple"
+                        : "text-gray-400"
+                    }`}
+                  >
+                    Speed
+                  </span>
+                  <label className="relative inline-flex items-center cursor-pointer mx-2">
+                    <input
+                      type="checkbox"
+                      value=""
+                      className="sr-only peer"
+                      onChange={handleSetModel}
+                      checked={model === "gpt-4"}
+                    />
+                    <div className="w-11 h-6 bg-vulsePurple rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:bor2er-gray-600 peer-checked:bg-vulsePurple"></div>
+                  </label>
+                  <span
+                    className={`text-sm font-medium ${
+                      model === "gpt-4" ? "text-vulsePurple" : "text-gray-400"
+                    }`}
+                  >
+                    Quality
+                  </span>
+                </div> */}
+
+                <div>
+                  <div className="flex h-full w-fit text-sm rounded-full border border-vulseBorder  p-0.5">
+                    <button
+                      onClick={() => setSelectedIndex(0)}
+                      className={`${
+                        selectedIndex === 0
+                          ? "bg-[#432F7B] bg-opacity-15 text-white"
+                          : "bg-none text-[#848CA8]"
+                      } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
+                    >
+                      Speed
+                    </button>
+                    <button
+                      onClick={() => setSelectedIndex(1)}
+                      className={`${
+                        selectedIndex === 0
+                          ? "bg-none  text-[#848CA8] "
+                          : "bg-[#432F7B] bg-opacity-15 text-white"
+                      } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
+                    >
+                      Quality
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="my-6 ">
+                {themes.length > 0 &&
+                  themes?.map((theme, index) => (
+                    <div key={index} className="mb-2">
+                      <p className="font-medium font-kumbh text-base text-[#848CA8] mb-3 ">{`Theme ${
+                        index + 1
+                      }`}</p>
+                      <Theme
+                        theme={theme}
+                        index={index}
+                        themes={themes}
+                        setThemes={setThemes}
+                        generatePost={generatePost}
+                        generatePostIdeas={generatePostIdeas}
+                        setPost={setPost}
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 border-b py-3">
-            {themes.length > 0 &&
-              themes?.map((theme, index) => (
-                <Theme
-                  theme={theme}
-                  index={index}
-                  themes={themes}
-                  setThemes={setThemes}
-                  generatePost={generatePost}
-                  generatePostIdeas={generatePostIdeas}
-                  setPost={setPost}
-                />
-              ))}
-          </div>
-          {/* if user has selected a post to edit */}
-          {post && <PostEdit post={post} setPost={setPost} />}
+          </section>
+
+          <section className="w-1/2 h-full p-8">
+            <div className="flex-col w-full h-fit">
+              <div className="w-full h-fit mb-6 ">
+                <h1 className=" text-xl font-bold font-raleway text-[#848CA8]">
+                  Post Output
+                </h1>
+              </div>
+
+              <div className="space-y-4 mb-12">
+                <div className="h-28 w-full bg-white border-vulseBorder border-[1.5px] rounded-md"></div>
+                <div className="h-10 w-full bg-white border-vulseBorder border-[1.5px] rounded-md"></div>
+              </div>
+
+              {post && <PostEdit post={post} setPost={setPost} />}
+              {/* if user has selected a post to edit */}
+
+              <div className="  h-fit w-full space-x-4 lg:space-x-14 flex ">
+                <button className="border bg-[#061A55] bg-opacity-10 rounded-full px-5 py-2 text-vulseBlue text-opacity-50">
+                  Save as draft
+                </button>
+
+                <button className="border bg-vulsePurple font text-white  rounded-full px-5 py-2 flex items-center">
+                  <IoPaperPlaneOutline className="mr-2" />
+                  Post
+                </button>
+
+                <button className="border border-[#432F7B] text-[#432F7B] bg-vulseGrey rounded-full px-5 py-2 flex items-center">
+                  <LuClock3 className="mr-2" />
+                  Schedule
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
-      </div>
+      </main>
     </>
   );
 }
