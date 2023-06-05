@@ -9,6 +9,7 @@ import PostEdit from "../components/PostEdit";
 import Theme from "../components/Theme";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { LuClock3 } from "react-icons/lu";
+import Link from "next/link";
 
 export default function Home() {
   //main object to store all data
@@ -339,13 +340,9 @@ export default function Home() {
     deleteCookie("userData");
   }
 
-  function handleSetModel(e) {
-    if (e.target.checked) {
-      setModel("gpt-4");
-    } else {
-      setModel("gpt-3.5-turbo");
-    }
-  }
+  const handleSetModel = (model) => {
+    setModel(model);
+  };
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -376,58 +373,27 @@ export default function Home() {
                   Select speed or quality:
                 </h3>
 
-                {/* <div className="flex items-center">
-                  <span
-                    className={`text-sm font-medium ${
+                <div className="flex h-full w-fit text-sm rounded-full border border-vulseBorder p-0.5">
+                  <button
+                    onClick={() => handleSetModel("gpt-3.5-turbo")}
+                    className={`${
                       model === "gpt-3.5-turbo"
-                        ? "text-vulsePurple"
-                        : "text-gray-400"
-                    }`}
+                        ? "bg-[#432F7B] bg-opacity-15 text-white"
+                        : "bg-none text-[#848CA8]"
+                    } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
                   >
                     Speed
-                  </span>
-                  <label className="relative inline-flex items-center cursor-pointer mx-2">
-                    <input
-                      type="checkbox"
-                      value=""
-                      className="sr-only peer"
-                      onChange={handleSetModel}
-                      checked={model === "gpt-4"}
-                    />
-                    <div className="w-11 h-6 bg-vulsePurple rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:bor2er-gray-600 peer-checked:bg-vulsePurple"></div>
-                  </label>
-                  <span
-                    className={`text-sm font-medium ${
-                      model === "gpt-4" ? "text-vulsePurple" : "text-gray-400"
-                    }`}
+                  </button>
+                  <button
+                    onClick={() => handleSetModel("gpt-4")}
+                    className={`${
+                      model === "gpt-4"
+                        ? "bg-[#432F7B] bg-opacity-15 text-white"
+                        : "bg-none  text-[#848CA8] "
+                    } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
                   >
                     Quality
-                  </span>
-                </div> */}
-
-                <div>
-                  <div className="flex h-full w-fit text-sm rounded-full border border-vulseBorder  p-0.5">
-                    <button
-                      onClick={() => setSelectedIndex(0)}
-                      className={`${
-                        selectedIndex === 0
-                          ? "bg-[#432F7B] bg-opacity-15 text-white"
-                          : "bg-none text-[#848CA8]"
-                      } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
-                    >
-                      Speed
-                    </button>
-                    <button
-                      onClick={() => setSelectedIndex(1)}
-                      className={`${
-                        selectedIndex === 0
-                          ? "bg-none  text-[#848CA8] "
-                          : "bg-[#432F7B] bg-opacity-15 text-white"
-                      } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
-                    >
-                      Quality
-                    </button>
-                  </div>
+                  </button>
                 </div>
               </div>
 
@@ -462,24 +428,27 @@ export default function Home() {
               </div>
 
               <div className="space-y-4 mb-12">
-                <div className="h-28 w-full bg-white border-vulseBorder border-[1.5px] rounded-md"></div>
-                <div className="h-10 w-full bg-white border-vulseBorder border-[1.5px] rounded-md"></div>
+                <div className="h-28 w-full bg-white border-vulseBorder border-[1.5px] rounded-md hover:cursor-text">
+                  {post && <PostEdit post={post} setPost={setPost} />}
+                  {/* if user has selected a post to edit */}
+                </div>
+                <div className="h-10 w-full bg-white border-vulseBorder border-[1.5px] rounded-md hover:cursor-text"></div>
               </div>
 
-              {post && <PostEdit post={post} setPost={setPost} />}
-              {/* if user has selected a post to edit */}
-
               <div className="  h-fit w-full space-x-4 lg:space-x-14 flex ">
-                <button className="border bg-[#061A55] bg-opacity-10 rounded-full px-5 py-2 text-vulseBlue text-opacity-50">
+                <Link
+                  href=""
+                  className="border bg-[#061A55] bg-opacity-10 rounded-full px-2 md:px-2.5 lg:px-4 xl:px-5 py-1.5 md:py-2 text-vulseBlue text-opacity-50"
+                >
                   Save as draft
-                </button>
+                </Link>
 
-                <button className="border bg-vulsePurple font text-white  rounded-full px-5 py-2 flex items-center">
+                <button className="border bg-vulsePurple font text-white  rounded-full px-2 md:px-2.5 lg:px-4 xl:px-5 py-1.5 md:py-2 flex items-center">
                   <IoPaperPlaneOutline className="mr-2" />
                   Post
                 </button>
 
-                <button className="border border-[#432F7B] text-[#432F7B] bg-vulseGrey rounded-full px-5 py-2 flex items-center">
+                <button className="border border-[#432F7B] text-[#432F7B] bg-vulseGrey rounded-full  px-2 md:px-2.5 lg:px-4 xl:px-5 py-1.5 md:py-2 flex items-center">
                   <LuClock3 className="mr-2" />
                   Schedule
                 </button>

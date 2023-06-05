@@ -2,7 +2,7 @@ import React from "react";
 
 function Post({ topic, setPost }) {
   return (
-    <div className="text-2l text-gray-400 dark:text-gray-500 fomt-semibold w-full">
+    <div className="text-2l text-gray-400 dark:text-gray-500 fomt-semibold w-full pb-1">
       <details className="flex flex-col items-start justify-start space-y-2 w-full">
         <summary className="flex items-center justify-start font-semibold space-x-2 py-2 px-1 text-sm border- cursor-pointer">
           {topic.post.length > 60
@@ -25,14 +25,14 @@ function Post({ topic, setPost }) {
           </svg>
         </summary>
         <div className="flex flex-col items-start justify-start space-y-2 w-full">
-          <div className="space-x-2 py-2 px-1 text-sm border-b whitespace-pre-wrap min-h-20 max-h-40 overflow-y-auto">
+          <div className="space-x-2 py-2 px-1 text-sm  whitespace-pre-wrap min-h-20 max-h-40 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-[#432F7B]/100">
             {topic.post}
           </div>
           <button
             className="flex space-x-1 px-2 py-1 text-white bg-vulsePurple rounded-full self-end"
             onClick={() => setPost(topic)}
           >
-            <span>Edit </span>
+            <span className="">Edit </span>
             <svg
               fill="currentColor"
               viewBox="0 0 24 24"

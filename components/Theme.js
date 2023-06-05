@@ -19,7 +19,7 @@ function Theme({
       className={`flex flex-col items-start justify-start ${index != 2 && ""} `}
       key={index}
     >
-      <div className="flex w-full">
+      <div className="flex w-full mb-3">
         <div className="relative w-full">
           <input
             type="text"
@@ -70,28 +70,34 @@ function Theme({
           )}
         </div>
       </div>
-
-      <div className="flex flex-col items-start justify-center rounded space-y-4 py-2 px-1 text-sm">
-        {theme.ideas?.map((topic, index) => (
-          <div className="flex flex-col items-center justify-between space-x-2 py-2 px-1 text-sm w-full ">
+      {theme.ideas && theme.ideas.length > 0 && (
+        <div className="flex flex-col items-center justify-center rounded-md space-y-4 py-2 text-sm border-[1.5px] border-vulseBorder bg-white w-full">
+          {theme.ideas.map((topic, index, arr) => (
             <div
-              className="flex items-center justify-between rounded space-x-2 py-2 px-1 text-sm w-full"
+              className={`flex flex-col items-center justify-between text-sm w-[97%] text-vulseBlue ${
+                index !== arr.length - 1 ? "border-b-2 border-[#EAE8EF]" : ""
+              }`}
               key={index}
             >
-              <h3 className="text-sm font-semibold text-gray-800">
-                {topic.title}{" "}
-              </h3>
-              <button
-                className={`ml-1 p-1 text-white bg-vulsePurple rounded-full`}
-                onClick={() => generatePost(topic.title, theme.theme)}
+              <div
+                className="flex items-center justify-between rounded space-x-2 text-sm w-full pb-1"
+                key={index}
               >
-                {topic.loading ? <Spinner /> : "Generate"}
-              </button>
+                <h3 className="text-sm font-semibold text-gray-800">
+                  {topic.title}
+                </h3>
+                <button
+                  className={`ml-1 py-1 px-2 text-white bg-vulsePurple rounded-full`}
+                  onClick={() => generatePost(topic.title, theme.theme)}
+                >
+                  {topic.loading ? <Spinner /> : "Generate"}
+                </button>
+              </div>
+              {topic.post && <Post topic={topic} setPost={setPost} />}
             </div>
-            {topic.post && <Post topic={topic} setPost={setPost} />}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
