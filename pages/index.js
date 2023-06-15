@@ -28,6 +28,8 @@ export default function Home() {
     },
   ]);
 
+  const [inputValue, setInputValue] = useState("");
+
   //editable in sidebar
   const [session, setSession] = useState(null); //user session from linkedin
   const [sidebarOpen, setSidebarOpen] = useState(false); //show sidebar
@@ -356,11 +358,11 @@ export default function Home() {
       </Head>
 
       <main className="w-full h-screen p-6 font-kumbh max-h-screen">
-        <div className="flex max-h-full min-h-full h-full bg-vulseGrey rounded-lg overflow-hidden">
-          <section className="w-1/2 h-full max-h-full py-8 ">
+        <div className="md:flex max-h-full min-h-full h-full bg-vulseGrey rounded-lg overflow-hidden max-md:overflow-y-scroll scrollbar-thin scrollbar-thumb-[#432F7B] scrollbar-track-[#C2C6D3]">
+          <section className="md:w-1/2 w-full md:h-full h-fit max-h-full py-8">
             <div
               name="scroll"
-              className="px-8 flex-col w-full h-full overflow-y-scroll max-h-full scrollbar-thin scrollbar-thumb-[#432F7B] scrollbar-track-[#C2C6D3]"
+              className="px-8 flex-col w-full h-full md:overflow-y-scroll max-h-full md:scrollbar-thin md:scrollbar-thumb-[#432F7B] md:scrollbar-track-[#C2C6D3]"
             >
               <div className="w-full h-fit ">
                 <h1 className="text-2xl font-bold font-raleway text-vulseBlue mb-4">
@@ -388,7 +390,7 @@ export default function Home() {
                     onClick={() => handleSetModel("gpt-4")}
                     className={`${
                       model === "gpt-4"
-                        ? "bg-[#432F7B] bg-opacity-15 text-white"
+                        ? "bg-[#432F7B] bg-opacity-90 text-white"
                         : "bg-none  text-[#848CA8] "
                     } transition-all duration-300 ease-in-out px-3.5 py-0.5 rounded-full`}
                   >
@@ -419,7 +421,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="w-1/2 h-full p-8">
+          <section className="md:w-1/2 w-full md:h-full h-fit p-8">
             <div className="flex-col w-full h-fit">
               <div className="w-full h-fit mb-6 ">
                 <h1 className=" text-xl font-bold font-raleway text-[#848CA8]">
@@ -428,11 +430,21 @@ export default function Home() {
               </div>
 
               <div className="space-y-4 mb-12">
-                <div className="h-28 w-full bg-white border-vulseBorder border-[1.5px] rounded-md hover:cursor-text">
-                  {post && <PostEdit post={post} setPost={setPost} />}
-                  {/* if user has selected a post to edit */}
-                </div>
-                <div className="h-10 w-full bg-white border-vulseBorder border-[1.5px] rounded-md hover:cursor-text"></div>
+                <textarea
+                  className="w-full p-2 text-sm min-h-[200px] max-h-[500px] overflow-hidden focus:outline-none focus:ring-2 focus:ring-vulsePurple focus:border-transparent resize-none scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-[#432F7B]/100 bg-white border-vulseBorder border-[1.5px] rounded-md hover:cursor-text overflow-y-auto	"
+                  value={post.post}
+                  onChange={(e) => setPost(e.target.value)}
+                  placeholder="Your post output will appear here..."
+                />
+
+                <input
+                  type="text"
+                  value={inputValue}
+                  className={`p-2.5 w-full z-20 placeholder:text-md font-kumbh font-medium rounded-md border-[1.5px] border-vulseBorder focus:ring-vulsePurple focus:border-vulsePurple focus:outline-none ${
+                    inputValue && "text-[#0B1A52]"
+                  }`}
+                  placeholder={`First Post Comment`}
+                />
               </div>
 
               <div className="  h-fit w-full space-x-4 lg:space-x-14 flex ">

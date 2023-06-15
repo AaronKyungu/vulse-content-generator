@@ -4,6 +4,9 @@ import { LuEdit, LuLightbulb } from "react-icons/lu";
 
 import { Popover } from "@headlessui/react";
 import Link from "next/link";
+import PostCreation from "../../../public/images/postCreation.svg";
+import DashboardNav from "../../../public/images/DashboardNav.svg";
+import ScheduleNav from "../../../public/images/schedule.svg";
 
 const NavBar = () => {
   return (
@@ -25,20 +28,14 @@ const NavBar = () => {
           <div className="flex h-[85px] w-full flex-col items-center justify-center transition hover:bg-vulseBlue hover:bg-opacity-10">
             <div className="absolute left-0 hidden h-full w-[5px] bg-white transition active:flex" />
             {/* this is a test - which will be implemented when on the current page */}
-            <a
+            <Link
               href=""
               className="flex w-full cursor-pointer flex-col items-center justify-center text-xs text-vulse-white"
             >
               <div className="">
-                <Image
-                  className="h-full w-full"
-                  src="/images/DashboardNav.svg"
-                  alt="Dashboard"
-                  width={50}
-                  height={50}
-                />
+                <DashboardNav className="fill-[#848CA8] w-full h-full" />
               </div>
-            </a>
+            </Link>
           </div>
 
           <div className="flex h-[85px] w-full flex-col items-center justify-center transition hover:bg-vulseBlue hover:bg-opacity-10 max-[515px]:hidden ">
@@ -49,18 +46,12 @@ const NavBar = () => {
               className="flex w-full cursor-pointer flex-col items-center justify-center text-xs text-vulse-white"
             >
               <div className="">
-                <Image
-                  className="h-full w-full"
-                  src="/images/schedule.svg"
-                  alt="Schedule"
-                  width={50}
-                  height={50}
-                />
+                <ScheduleNav className="fill-[#848CA8] w-full h-full" />
               </div>
             </Link>
           </div>
 
-          <div className="flex h-[85px] w-full flex-col items-center justify-center transition hover:bg-slate-500 bg-vulsePurple bg-opacity-100 max-[515px]:hidden ">
+          <div className="flex h-[85px] w-full flex-col items-center justify-center transition hover:bg-slate-200 bg-opacity-100 max-[515px]:hidden ">
             <div className="absolute left-0 hidden h-full w-[5px] bg-white transition active:flex" />
             {/* this is a test - which will be implemented when on the current page */}
             <Link
@@ -68,13 +59,7 @@ const NavBar = () => {
               className="flex w-full cursor-pointer flex-col items-center justify-center text-xs text-vulse-white"
             >
               <div className="">
-                <Image
-                  className="h-full w-full "
-                  src="/images/postCreation.svg"
-                  alt="Dashboard"
-                  width={50}
-                  height={50}
-                />
+                <PostCreation className="fill-[#848CA8] w-full h-full" />
               </div>
             </Link>
           </div>
@@ -92,7 +77,7 @@ const NavBar = () => {
                     className="stroke-white mb-1.5 font-medium text-[11px] font-kumbh w-full"
                     size={26}
                   />
-                  <div className="text-[11px]">Content Ideas</div>
+                  <div className="text-[11px] font-bold">Content Ideas</div>
                 </label>
               </div>
             </Link>
@@ -121,7 +106,7 @@ const NavBar = () => {
               className="flex w-full cursor-pointer flex-col items-center justify-center text-xs text-vulseBlue"
             >
               <Image
-                className="scale-[85%]"
+                className="scale-[85%] "
                 src="/images/setting.svg"
                 alt="Setting"
                 width={50}
